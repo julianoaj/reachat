@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'matrixfont';
+    src: url("../fonts/matrix-code-nfi.otf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: black;
+}
+
+/* App fit Height */
+html, body, #__next {
+    min-height: 100%;
+    display: flex;
+    flex: 1;
+}
+
+#__next {
+    flex: 1;
+}
+
+#__next > * {
+    flex: 1;
+}
+/* ./App fit Height */
+
+/*FADE IN BOX*/
+@keyframes fadeInBottom {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -70%);
+    }
+    to {
+        opacity: 1
+    }
+}
+
+/*scroll style*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #595959;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6b6b6b;
+}
