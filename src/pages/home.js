@@ -1,11 +1,11 @@
 import appConfig from "../../config.json";
 import animationData from "../assets/lottie/photoScam.json";
 import Lottie from "react-lottie-player";
-import React from "react";
+import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 
 export default function BoxLogin() {
-    const [username, setUsername] = React.useState('julianoaj')
+    const [username, setUsername] = React.useState('lsk-dev')
     const [dataGithub, setDataGithub] = React.useState([])
     const route = useRouter()
     const [lottie, setLottie] = React.useState(true)
@@ -25,6 +25,8 @@ export default function BoxLogin() {
             }).then((conv) => {
             setDataGithub(conv)
         })
+
+        replaceValidationUI()
     }, [username])
 
     return (
@@ -59,11 +61,15 @@ export default function BoxLogin() {
                     <p>Se clicar em entrar ira descobrir até a onde a toca do coelho vai. Se não, ira continuar vivendo
                         sua vida como ela sempre foi. A escolha é sua!</p>
                 </div>
-                <div className="box-content text-white-600 text-sm text-center w-full">
+                <div className="box-content text-white-600 text-sm text-center w-full teste" data-error="PREENCHE AI IRMÃO">
                     <form
                         onSubmit={function (submitEvent) {
                             submitEvent.preventDefault();
-                            route.push('/chat');
+
+
+                            setTimeout(() => {
+                                route.push('/chat')
+                            }, 3000)
                         }}
                     >
                         <label className="flex flex-col items-center mb-3">
@@ -73,7 +79,7 @@ export default function BoxLogin() {
                         </label>
                         <input
                             type="text" name="text"
-                            className="mt-1 px-4 py-3 bg-grey-800 focus:outline-none ring-[#3F9142] block w-full rounded-md sm:text-sm focus:ring-1"
+                            className="mt-1 px-4 py-3 bg-grey-800 focus:outline-none ring-[#3F9142] block w-full rounded-md sm:text-sm focus:ring-1 placeholder:italic"
                             placeholder="Seu nome de usuário GitHub"
                             onChange={function (event) {
                                 const onChangeValue = event.target.value
@@ -81,6 +87,7 @@ export default function BoxLogin() {
                                     setUsername(event.target.value);
                                 }
                             }}
+                            required
                         />
                         <button
                             className="bg-green-500 w-full px-4 py-2.5 text-white rounded-md mt-4 hover:bg-green-600 active:bg-green-600 focus:outline-none">
@@ -91,4 +98,10 @@ export default function BoxLogin() {
             </div>
         </div>
     )
+}
+
+function replaceValidationUI () {
+    document.querySelector( "form > input" ).addEventListener( "invalid", (event) => {
+        event.preventDefault()
+    })
 }

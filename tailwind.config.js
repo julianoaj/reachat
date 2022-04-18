@@ -3,6 +3,7 @@ module.exports = {
         "./src/pages/_app.js",
         "./src/pages/home.js",
         "./src/pages/chat.js",
+        "./src/components/layout/chat/chatBox.js",
         "./src/components/matrixBackground/matrixRain.js",
         "./src/components/matrixBackground/rainStream.js"
     ],
@@ -26,6 +27,10 @@ module.exports = {
             height: {
                 '600': '600px',
                 '240': '240px',
+            },
+            spacing: {
+                'vh-95': '95vh',
+                'vw-95': '95vw'
             }
         },
     },
