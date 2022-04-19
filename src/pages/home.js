@@ -26,7 +26,7 @@ export default function BoxLogin() {
             setDataGithub(conv)
         })
 
-        replaceValidationUI()
+        replaceValidationUI(document.querySelector("form"))
     }, [username])
 
     return (
@@ -65,8 +65,7 @@ export default function BoxLogin() {
                     <form
                         onSubmit={function (submitEvent) {
                             submitEvent.preventDefault();
-
-
+                            animationSubmit()
                             setTimeout(() => {
                                 route.push('/chat')
                             }, 3000)
@@ -100,8 +99,42 @@ export default function BoxLogin() {
     )
 }
 
-function replaceValidationUI () {
-    document.querySelector( "form > input" ).addEventListener( "invalid", (event) => {
+function animationSubmit () {
+    document.querySelector("button").style.backgroundColor = "red";
+}
+
+function replaceValidationUI (form) {
+    form.addEventListener( "invalid", (event) => {
         event.preventDefault()
-    })
+    }, true);
+
+    form.addEventListener( "submit", function( event ) {
+        if ( !this.checkValidity() ) {
+            event.preventDefault();
+        }
+    });
+
+    let submitButton = form.querySelector( "button:not([type=button])");
+    submitButton.addEventListener( "click", function( event ) {
+        let invalidFields = form.querySelectorAll( ":invalid" ),
+            errorMessages = form.querySelectorAll( ".error-message" ),
+            parent;
+
+        // Remove any existing messages
+        for ( let i = 0; i < errorMessages.length; i++ ) {
+            errorMessages[ i ].parentNode.removeChild( errorMessages[ i ] );
+        }
+
+        for ( let i = 0; i < invalidFields.length; i++ ) {
+            parent = invalidFields[ i ];
+            parent.insertAdjacentHTML( "afterend", "<div class='error-message mt-1 text-xs'>" +
+                invalidFields[ i ].validationMessage +
+                "</div>" );
+        }
+
+        // If there are errors, give focus to the first invalid field
+        if ( invalidFields.length > 0 ) {
+            invalidFields[ 0 ].focus();
+        }
+    });
 }
